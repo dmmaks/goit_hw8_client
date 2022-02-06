@@ -1,0 +1,54 @@
+  <form [formGroup]="searchForm" (ngSubmit)="getBySearch()" class="manufacturer-search-form">
+    <div class="filters">
+    <div class="main-filters">
+    <button type="submit" class="btn-filter" mat-flat-button color="warn">Apply Filter</button>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Search by name" formControlName="name">
+    </mat-form-field>
+
+  </div></div>
+      
+  </form>
+
+
+<div class="table-container" *ngIf="pageContent" [ngClass] = "this.isWithActions">
+  <mat-table id="table" [dataSource]="pageContent.content" #table 
+  matSort matSortDisableClear [matSortDirection] = "sortOrder" (matSortChange)="sortData($event.direction)" class="mat-cell">  
+
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+    <mat-cell class="content-text" *matCellDef="let item">{{item.id}}</mat-cell>
+  </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Name</mat-header-cell>
+      <mat-cell class="content-text" *matCellDef="let item">{{item.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions"  *ngIf = "userRole !== 'ROLE_USER'">
+      <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" routerLink="./add">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let item" >
+          <button mat-icon-button color="accent" [routerLink]="['edit', item.id]">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+          <button mat-icon-button color="accent" *ngIf = "userRole === 'ROLE_MODERATOR'">
+            <mat-icon aria-label="Delete" (click)="confirmDelete(item.id)">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let item; columns: columnsToDisplay"></mat-row>
+  </mat-table>
+</div>
+
+<mat-paginator *ngIf="pageContent"
+  [length]="pageContent.totalElements"
+  [pageIndex]="currentPage"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[12, 20, 40]"
+  (page)="paginationHandler($event)">
+</mat-paginator>
