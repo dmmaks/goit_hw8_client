@@ -19,7 +19,7 @@ const productModule = () => import('./products/product.module').then(x => x.Prod
 const routes: Routes = [
   { path: '', redirectTo: '/account/signin', pathMatch: 'full' },
   { path: 'account', loadChildren: accountModule, canActivate: [AuthFormsGuard] },
-  { path: 'admin', loadChildren: adminModule, canActivate: [AuthGuard], data: { roles: [Role.Admin, Role.User] } },
+  { path: 'users', loadChildren: adminModule, canActivate: [AuthGuard], data: { roles: [Role.Admin, Role.User] } },
   { path: 'profile', loadChildren: profileModule, canActivate: [AuthGuard] },
   { path: 'friends', loadChildren: friendsModule, canActivate: [AuthGuard] },
   { path: 'kitchenware', loadChildren: kitchenwareModule, canActivate: [AuthGuard], data: { roles: [Role.Moderator]} },

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../admin/layout/layout.component';
-import {ModerListPageComponent} from "./moder-list-page/moder-list-page.component";
+import {UserListPageComponent} from "./user-list-page/user-list-page.component";
 
 const routes: Routes = [{
   path:'', component:LayoutComponent,
   children: [
-    {path: '', component: ModerListPageComponent}
+    {path: '', component: UserListPageComponent}
   ]
 
 

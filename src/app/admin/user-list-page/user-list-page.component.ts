@@ -6,23 +6,23 @@ import {AccountInList} from "../../_models/account-in-list";
 import {AdminService} from "../../_services/admin.service";
 import {AlertService} from "../../_services";
 import {takeUntil} from "rxjs/operators";
-import {CreateModerComponent} from "../create-moder/create-moder.component";
+import {CreateUserComponent} from "../create-user/create-user.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {EditModerComponent} from "../edit-moder/edit-moder.component";
+import {EditUserComponent} from "../edit-user/edit-user.component";
 import {SearchAccountParams} from "../../_models/search-account-params";
 
 
 @Component({
-  selector: 'app-moder-list-page',
-  templateUrl: './moder-list-page.component.html',
-  styleUrls: ['./moder-list-page.component.scss']
+  selector: 'app-user-list-page',
+  templateUrl: './user-list-page.component.html',
+  styleUrls: ['./user-list-page.component.scss']
 })
-export class ModerListPageComponent {
+export class UserListPageComponent {
   pageContent: AccountInList[] = [];
   totalElements: number;
   searchForm: FormGroup = this.createFormGroup();
   destroy: ReplaySubject<any> = new ReplaySubject<any>();
-  columnsToDisplay = ['image', 'firstName', 'lastName', 'id', 'actions'];
+  columnsToDisplay = ['image', 'id', 'firstName', 'lastName', 'birthDate', 'gender', 'actions'];
   pageSize: number = 12;
   currentPage: number;
   alertMessage: string;
@@ -88,11 +88,11 @@ export class ModerListPageComponent {
     });
   }
 
-  newModerator() {
+  newUser() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    this.dialog.open(CreateModerComponent, dialogConfig);
+    this.dialog.open(CreateUserComponent, dialogConfig);
   }
 
   editModerator(account : AccountInList, id : string){
@@ -105,7 +105,7 @@ export class ModerListPageComponent {
       id : id
     };
 
-    const dialogRef = this.dialog.open(EditModerComponent, dialogConfig);
+    const dialogRef = this.dialog.open(EditUserComponent, dialogConfig);
     dialogRef.afterClosed().pipe(takeUntil(this.destroy)).subscribe((data: AccountInList) => {
       if(data){
         account.firstName = data.firstName;

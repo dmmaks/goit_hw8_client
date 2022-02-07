@@ -52,14 +52,15 @@
       </mat-form-field>
     </div>
 
-    <div class="form">
-      <mat-form-field>
-        <input matInput placeholder="Image url"  formControlName="imgUrl">
-        <mat-error>
-          Entered link has incorrect format. Set only .jpeg|.jpg|.png images.
-        </mat-error>
-      </mat-form-field>
-    </div>
+    <mat-form-field class="form" >
+      <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" onkeypress="return event.charCode != 32" formControlName="password" required>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      <mat-error>
+          Enter your password, please
+      </mat-error>
+  </mat-form-field>
 
     <mat-dialog-actions>
       <button class="mat-raised-button" (click)="close()">Close</button>

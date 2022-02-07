@@ -7,17 +7,18 @@ import {AlertService} from "../../_services";
 import {AccountInList} from "../../_models/account-in-list";
 
 @Component({
-  selector: 'app-create-moder',
-  templateUrl: './create-moder.component.html',
-  styleUrls: ['./create-moder.component.scss']
+  selector: 'app-create-user',
+  templateUrl: './create-user.component.html',
+  styleUrls: ['./create-user.component.scss']
 })
-export class CreateModerComponent implements OnDestroy {
+export class CreateUserComponent implements OnDestroy {
   destroy: ReplaySubject<any> = new ReplaySubject<any>();
   form: FormGroup;
   alertMessage: string;
+  hide: boolean = true;
 
   constructor(
-    public dialogRef: MatDialogRef<CreateModerComponent>,
+    public dialogRef: MatDialogRef<CreateUserComponent>,
     public service: AdminService,
     private formBuilder: FormBuilder,
     private alertService: AlertService
@@ -25,10 +26,10 @@ export class CreateModerComponent implements OnDestroy {
     this.form = this.formBuilder.group({
       firstName: [null, [Validators.required, Validators.pattern('^([A-Z a-z]){3,35}$')]],
       lastName: [null, [Validators.required, Validators.pattern('^([A-Z a-z]){3,35}$')]],
-      imgUrl: [null, [Validators.required, Validators.pattern('[^\s]+(.*?)\.(jpg|jpeg|png|JPG|JPEG|PNG)$')]],
       birthDate: ['', Validators.required],
       email: ['', Validators.email],
-      gender: ['', Validators.required]
+      gender: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
@@ -39,11 +40,11 @@ export class CreateModerComponent implements OnDestroy {
   public confirmAdd(): void {
     if (this.form.valid) {
       const account: AccountInList = this.form.value;
-      this.service.addModerator(account)
+      this.service.addUser(account)
         .pipe(takeUntil(this.destroy))
         .subscribe({
           next: () => {
-            this.alertService.success("Password-creation letter has been sent.", true, true);
+            this.alertService.success("User created.", true, true);
             this.dialogRef.close();
           },
           error: error => {

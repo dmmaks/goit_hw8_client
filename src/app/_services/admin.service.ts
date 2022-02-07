@@ -7,7 +7,7 @@ import {SearchAccountParams} from "../_models/search-account-params";
 import {Page} from "../_models/page";
 import {AccountInList} from "../_models/account-in-list";
 
-const baseUrl = `${environment.serverUrl}/management`;
+const baseUrl = `${environment.serverUrl}/user`;
 
 @Injectable({
   providedIn: 'root',
@@ -46,11 +46,11 @@ export class AdminService {
     return this.getAccounts(currentPage, this.searchParams, pageSize);
   }
 
-  addModerator(account: AccountInList) {
-    return this.http.post(`${baseUrl}`, account);
+  addUser(account: AccountInList) {
+    return this.http.post(`${environment.serverUrl}/auth/signup`, account);
   }
 
-  editModerator(account: AccountInList) {
+  editUser(account: AccountInList) {
     return this.http.put(`${baseUrl}`, account);
   }
 

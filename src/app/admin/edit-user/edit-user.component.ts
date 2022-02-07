@@ -7,19 +7,19 @@ import {AlertService} from "../../_services";
 import {AccountInList} from "../../_models/account-in-list";
 
 @Component({
-  selector: 'app-edit-moder',
-  templateUrl: './edit-moder.component.html',
-  styleUrls: ['./edit-moder.component.scss']
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.scss']
 })
 
-export class EditModerComponent implements OnInit, OnDestroy {
+export class EditUserComponent implements OnInit, OnDestroy {
   destroy: ReplaySubject<any> = new ReplaySubject<any>();
   form: FormGroup;
   profile: AccountInList;
   alertMessage: string;
 
   constructor(
-    public dialogRef: MatDialogRef<EditModerComponent>,
+    public dialogRef: MatDialogRef<EditUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AccountInList,
     public service: AdminService,
     private formBuilder: FormBuilder,
@@ -52,10 +52,10 @@ export class EditModerComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  editModerator(): void {
+  editUser(): void {
     if (this.form.valid) {
       const account: AccountInList = this.form.value;
-      this.service.editModerator(account)
+      this.service.editUser(account)
         .pipe(takeUntil(this.destroy))
         .subscribe({
           next: () => {

@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 class="title" mat-dialog-title>Moderator personal information</h3>
+  <h3 class="title" mat-dialog-title>User personal information</h3>
 
 
   <form class="mat-dialog-content" [formGroup]="form" *ngIf="profile">
@@ -67,7 +67,7 @@
 
     <mat-dialog-actions>
       <button class="mat-raised-button" (click)="close()">Close</button>
-      <button class="mat-raised-button mat-primary" [disabled]="!form.valid" (click)="editModerator()">Save</button>
+      <button class="mat-raised-button mat-primary" [disabled]="!form.valid" (click)="editUser()">Save</button>
     </mat-dialog-actions>
   </form>
 </div>
