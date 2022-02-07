@@ -1,0 +1,26 @@
+<div class="container">
+  <h3 class="title" mat-dialog-title>Manufacturer information</h3>
+
+  <form class="mat-dialog-content" [formGroup]="form" *ngIf="manufacturer">
+    <alert id="error-dialog"></alert>
+    <div class="form">
+      <mat-form-field>
+        <input matInput placeholder="Manufacturer identifier"  formControlName="id" value="manufacturer.id" [readonly]="true">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput placeholder="Name"  formControlName="name" value="manufacturer.name">
+        <mat-error>
+          Please enter manufacturer name correctly
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-dialog-actions>
+      <button class="mat-raised-button" (click)="close()">Close</button>
+      <button class="mat-raised-button mat-primary" [disabled]="!form.valid" (click)="editManufacturer()">Save</button>
+    </mat-dialog-actions>
+  </form>
+</div>

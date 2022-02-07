@@ -6,6 +6,34 @@
       <input matInput placeholder="Search by name" formControlName="name">
     </mat-form-field>
 
+  </div>
+
+  <div class="manufacturer-filter">
+    <mat-form-field class="full-width-input chip-list">
+      <mat-label>Select manufacturers</mat-label>
+      <mat-chip-list #chipList aria-label="Manufacturer selection">
+        <mat-chip
+          *ngFor="let manufacturer of selectedManufacturers"
+          (removed)="removeManufacturerFromList(manufacturer)">
+          {{manufacturer.name}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input
+          placeholder="Add manufacturer..."
+          #manufacturerInput
+          [formControl]="manufacturersControl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onManufacturerSelected($event)">
+        <mat-option *ngFor="let manufacturer of filteredManufacturers | async" [value]="manufacturer">
+          {{manufacturer.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
   </div></div>
       
   </form>
@@ -23,15 +51,19 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Name</mat-header-cell>
       <mat-cell class="content-text" *matCellDef="let item">{{item.name}}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by price">Price</mat-header-cell>
+      <mat-cell class="content-text" *matCellDef="let item">{{item.price}}</mat-cell>
+    </ng-container>
 
     <ng-container matColumnDef="actions"  *ngIf = "userRole !== 'ROLE_USER'">
       <mat-header-cell *matHeaderCellDef>
-          <button mat-icon-button color="primary" (click)="addManufacturer()">
+          <button mat-icon-button color="primary" (click)="addProduct()">
           <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
         </button>
       </mat-header-cell>
       <mat-cell *matCellDef="let item" >
-          <button mat-icon-button color="accent" (click)="editManufacturer(item)">
+          <button mat-icon-button color="accent" (click)="editProduct(item)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
           <button mat-icon-button color="accent" *ngIf = "userRole === 'ROLE_ADMIN'">

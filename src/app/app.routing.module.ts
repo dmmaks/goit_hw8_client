@@ -14,6 +14,7 @@ const stockModule = () => import('./stock/stock.module').then(x => x.StockModule
 const friendsModule = () => import('./friends/friends.module').then(x => x.FriendsModule);
 const dishModule = () => import('./dish/dish.module').then(x => x.DishModule);
 const manufacturerModule = () => import('./manufacturers/manufacturers.module').then(x => x.ManufacturerModule);
+const productModule = () => import('./products/product.module').then(x => x.ProductModule);
 
 const routes: Routes = [
   { path: '', redirectTo: '/account/signin', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'stock', loadChildren: stockModule, canActivate: [AuthGuard], data: { roles: [Role.User] } },
   { path: 'dishes', loadChildren: dishModule, canActivate: [AuthGuard], data: { roles: [Role.Admin, Role.User, Role.Moderator] } },
   { path: 'manufacturers', loadChildren: manufacturerModule, canActivate: [AuthGuard]},
+  { path: 'products', loadChildren: productModule, canActivate: [AuthGuard]},
   { path: '**', redirectTo: '/account/signin', pathMatch: 'full' }
 ];
 

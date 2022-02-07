@@ -6,7 +6,7 @@ import {AlertService, AuthService, IngredientService} from "../../_services";
 import {ManufacturersService} from "../../_services/manufacturers.service";
 import {Page} from "../../_models/page";
 import {map, startWith, takeUntil} from "rxjs/operators";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import { Manufacturer } from 'src/app/_models/manufacturer';
 import { IngredientFilter } from 'src/app/_models/_filters/ingredient.filter';
 import { DishIngredientFilter } from 'src/app/_models/_filters/dish-ingredient-filter';
@@ -17,6 +17,8 @@ import { SearchDishParams } from 'src/app/_models/search-dish-params';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
 import { Sort, SortDirection } from '@angular/material/sort';
+import { CreateManufacturerComponent } from '../create-manufacturer/create-manufacturer.component';
+import { EditManufacturerComponent } from '../edit-manufacturer/edit-manufacturer.component';
 
 
 @Component({
@@ -26,11 +28,6 @@ import { Sort, SortDirection } from '@angular/material/sort';
 })
 export class ManufacturerListPageComponent {
   pageContent: Page<Manufacturer>;
-  categories: string[] = [];
-  ingredients: DishIngredientFilter[] = [];
-  selectedIngredients: DishIngredientFilter[] = [];
-  selectedIngredientsIds: string[] = [];
-  filteredIngredients: Observable<DishIngredientFilter[]>;
   searchForm: FormGroup;
   destroy: ReplaySubject<any> = new ReplaySubject<any>();
   columnsToDisplay = ['id', 'name'];
@@ -39,8 +36,6 @@ export class ManufacturerListPageComponent {
   alertMessage: string;
   ingredientControl = new FormControl();
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  isFilteredByStock: boolean;
-  isFilteredByFavorite: boolean;
   userRole?: string;
   isWithActions: string;
   sortOrder: SortDirection = 'asc';
@@ -79,7 +74,6 @@ export class ManufacturerListPageComponent {
   getBySearch(): void {
     const filter: SearchDishParams = this.searchForm.value;
     filter.order = this.sortOrder;
-    filter.ingredients = this.selectedIngredientsIds.toString();
     this.manufacturerService.getManufacturersBySearch(this.searchForm.value, this.pageSize)
       .pipe(takeUntil(this.destroy))
       .subscribe({
@@ -136,6 +130,30 @@ export class ManufacturerListPageComponent {
   sortData(sortOrder: string) : void {
     sortOrder === 'desc' ? this.sortOrder = 'desc' : this.sortOrder = 'asc';
     this.getBySearch();
+  }
+
+  addManufacturer() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    this.dialog.open(CreateManufacturerComponent, dialogConfig);
+  }
+
+  editManufacturer(manufacturer: Manufacturer){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    let dataDialog = Object.assign({}, manufacturer);
+    dialogConfig.data = {
+      manufacturer: dataDialog
+    };
+    const dialogRef = this.dialog.open(EditManufacturerComponent, dialogConfig);
+    dialogRef.afterClosed().pipe(takeUntil(this.destroy)).subscribe((data: Manufacturer) => {
+      if(data){
+        manufacturer.name = data.name;
+      }
+    })
   }
 
   displayError(error: any) : void {
