@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {DishRoutingModule} from "./product-routing.module";
 import { ProductListPageComponent } from './product-list-page/product-list-page.component';
 import {LayoutComponent} from "./layout/layout.component";
 import {SharedModule} from "../shared/shared.module";
@@ -12,6 +11,9 @@ import {MatInputModule} from "@angular/material/input";
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { ProductRoutingModule } from './product-routing.module';
+import { MatCardModule } from '@angular/material/card';
+import { ProductInfoComponent } from './product-info/product-info.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { EditProductComponent } from './edit-product/edit-product.component';
     ProductListPageComponent,
     DeleteConfirmationComponent,
     CreateProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    ProductInfoComponent
   ],
   imports: [
     MatFormFieldModule,
@@ -27,8 +30,9 @@ import { EditProductComponent } from './edit-product/edit-product.component';
     FormsModule,
     MatCheckboxModule,
     SharedModule,
-    DishRoutingModule,
-    MatDialogModule
+    ProductRoutingModule,
+    MatDialogModule,
+    MatCardModule
   ],
 })
 export class ProductModule { }

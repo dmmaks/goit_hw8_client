@@ -54,8 +54,9 @@ export class EditProductComponent implements OnDestroy {
     this.getManufacturers("");
     this.form = this.formBuilder.group({
       id: [this.data.product.id],
+      price: [this.data.product.price],
       manufacturerId: [this.data.product.manufacturerId],
-      name: [this.data.product.name, [Validators.required, Validators.pattern('^([A-Z a-z]){1,35}$')]]
+      name: [this.data.product.name, [Validators.required, Validators.pattern('^([A-Z a-z 0-9]){1,35}$')]]
     });
   }
 

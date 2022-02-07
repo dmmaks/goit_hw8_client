@@ -1,0 +1,24 @@
+<mat-card fxFlex="50%" fxFlex.xs="90%">
+  <mat-card-content> 
+    <div *ngIf="productInfo">
+      <table class="mat-table">
+        <tr class="mat-row">
+          <td class="mat-cell">Name:</td>
+          <td class="mat-cell">{{productInfo.name}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="mat-cell">Price:</td>
+          <td class="mat-cell">{{productInfo.price}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="mat-cell">Manufacturer:</td>
+          <td class="mat-cell">{{manufacturer.name}}</td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="isNotFound" class="product-not-found">
+      <b>Dish not found</b>
+    </div>
+  </mat-card-content></mat-card>
+  
+  

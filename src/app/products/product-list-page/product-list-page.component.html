@@ -49,7 +49,7 @@
   </ng-container>
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Name</mat-header-cell>
-      <mat-cell class="content-text" *matCellDef="let item">{{item.name}}</mat-cell>
+      <mat-cell class="content-text product-name" *matCellDef="let item" routerLink="{{item.id}}">{{item.name}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="price">
       <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by price">Price</mat-header-cell>
