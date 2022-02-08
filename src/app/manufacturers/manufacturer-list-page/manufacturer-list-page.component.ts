@@ -2,23 +2,21 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {PageEvent} from "@angular/material/paginator";
 import {Observable, ReplaySubject} from "rxjs";
-import {AlertService, AuthService, IngredientService} from "../../_services";
+import {AlertService, AuthService} from "../../_services";
 import {ManufacturersService} from "../../_services/manufacturers.service";
 import {Page} from "../../_models/page";
 import {map, startWith, takeUntil} from "rxjs/operators";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import { Manufacturer } from 'src/app/_models/manufacturer';
-import { IngredientFilter } from 'src/app/_models/_filters/ingredient.filter';
-import { DishIngredientFilter } from 'src/app/_models/_filters/dish-ingredient-filter';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { SearchDishParams } from 'src/app/_models/search-dish-params';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
 import { Sort, SortDirection } from '@angular/material/sort';
 import { CreateManufacturerComponent } from '../create-manufacturer/create-manufacturer.component';
 import { EditManufacturerComponent } from '../edit-manufacturer/edit-manufacturer.component';
+import { SearchManufacturerParams } from 'src/app/_models/search-manufacturer-params';
 
 
 @Component({
@@ -72,9 +70,9 @@ export class ManufacturerListPageComponent {
 
 
   getBySearch(): void {
-    const filter: SearchDishParams = this.searchForm.value;
+    const filter: SearchManufacturerParams = this.searchForm.value;
     filter.order = this.sortOrder;
-    this.manufacturerService.getManufacturersBySearch(this.searchForm.value, this.pageSize)
+    this.manufacturerService.getManufacturersBySearch(filter, this.pageSize)
       .pipe(takeUntil(this.destroy))
       .subscribe({
         next: (response: Page<Manufacturer>) => {

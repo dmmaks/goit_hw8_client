@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ReplaySubject, takeUntil} from 'rxjs';
 import {ActivatedRoute, Router} from "@angular/router";
-import { Dish } from '../../_models';
-import { AlertService, DishService } from '../../_services';
+import { AlertService } from '../../_services';
 import { ProductsService } from 'src/app/_services/products.service';
 import { ManufacturersService } from 'src/app/_services/manufacturers.service';
 import { Product } from 'src/app/_models/product';

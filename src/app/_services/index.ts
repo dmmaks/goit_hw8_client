@@ -1,5 +1,2 @@
 export * from './auth.service'
 export * from './alert.service'
-export * from'./ingredient.service'
-export * from './stock.service'
-export * from'./dish.service'
